@@ -14,7 +14,8 @@ class Character extends React.Component {
         int: 8,
         wis: 8,
         cha: 8
-      }
+      },
+      currentName: ''
     }
   }
   // Helper Functions and things
@@ -43,7 +44,7 @@ class Character extends React.Component {
 
     // Using Point Buy System, Allocate Points
     let pool = 27
-    while (pool !== 0) {
+    while (pool >= 0) {
       // pick random stat
       let randomStat = numToStat[this.randomNumber(1, 6)]
       let randomStatValue = stats[randomStat]
@@ -56,6 +57,10 @@ class Character extends React.Component {
           pool -= 1
         } else {
           pool -= 2
+          if (pool < 0) {
+            stats[randomStat]--
+            pool += 2
+          }
         }
       }
     }
@@ -83,10 +88,16 @@ class Character extends React.Component {
     })
   }
 
-  componentDidMount() {
-    this.setStats(this.props.race)
+  componentDidUpdate() {
+    if (this.state.currentName !== this.props.name) {
+      this.setState({
+        currentName: this.props.name
+      }, () => {
+        // console.log('Set current name to ', this.state.currentName)
+        this.setStats(this.props.race)
+      })
+    }
   }
-
 
   render() {
 
@@ -104,7 +115,9 @@ class Character extends React.Component {
         </div>
         <div>
           Ability Scores:
-            <AbilityScore str={this.state.stats.str} dex={this.state.stats.dex} con={this.state.stats.con} int={this.state.stats.int} wis={this.state.stats.wis} cha={this.state.stats.cha} />
+          {this.props.race
+          ? <AbilityScore str={this.state.stats.str} dex={this.state.stats.dex} con={this.state.stats.con} int={this.state.stats.int} wis={this.state.stats.wis} cha={this.state.stats.cha} />
+          : null}
         </div>
       </div>
     )

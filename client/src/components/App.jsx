@@ -31,6 +31,7 @@ class App extends React.Component {
     })
   }
 
+
   render() {
     return (
       <div className="container-fluid">
@@ -38,11 +39,11 @@ class App extends React.Component {
           Character Generator
         </div>
         <div className="row">
+          Navbar / login
+        </div>
+        <div className="row">
           <div className="col">
-            {this.state.name.length > 1
-            ? <Character race={this.state.race} name={this.state.name} class={this.state.class} />
-            : null
-            }
+            <Character race={this.state.race} name={this.state.name} class={this.state.class} />
           </div>
           <div className="col">
             <Form putname={this.handleNameRender.bind(this)} putclass={this.handleClassRender.bind(this)} putrace={this.handleRaceRender.bind(this)}/>
