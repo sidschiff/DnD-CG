@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Form from './Form';
 import Character from './Character';
+import Login from './Login';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class App extends React.Component {
 
     this.state = {
       username: '',
-      password: '',
+      authenticated: false,
       race: '',
       name: '',
       class: '',
@@ -41,9 +42,16 @@ class App extends React.Component {
     })
   }
 
-  handleLogin(e) {
+  handleLoginForm(input) {
+    let { formUser, formPass } = input
 
+    // If username/pass are found in database
+    this.setState({
+      username: formUser,
+      authenticated: true
+    })
   }
+
 
   render() {
     return (
@@ -67,11 +75,10 @@ class App extends React.Component {
                     </button>
                   </div>
                   <div className="modal-body">
-                  LOGIN FORM HERE
+                    <Login grab={this.handleLoginForm.bind(this)}/>
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Login</button>
                   </div>
                 </div>
               </div>

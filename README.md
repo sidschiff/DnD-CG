@@ -14,6 +14,9 @@
 
 ## Server
 > CRUD ROUTES
+GET /user
+POST /user
+POST /user/char
 
 ## Developement
 ### Installing Dependencies
