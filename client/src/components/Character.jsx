@@ -85,6 +85,15 @@ class Character extends React.Component {
         wis: stats.wis,
         cha: stats.cha
       }
+    }, () => {
+      this.props.putstats({
+        str: stats.str,
+        dex: stats.dex,
+        con: stats.con,
+        int: stats.int,
+        wis: stats.wis,
+        cha: stats.cha
+      })
     })
   }
 
