@@ -7,7 +7,7 @@ class Create extends React.Component {
     this.state = {
       formUser: '',
       formP: '',
-      formVP: '',
+      formVP: null,
       verified: null
     }
   }

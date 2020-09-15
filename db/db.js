@@ -53,7 +53,7 @@ db.addCharacter = (userData, charData, callback) => {
       callback(err)
     }
     // console.log('Current form of doc', doc)
-    console.log(charData)
+    // console.log(charData)
     doc[0].characters.push(charData);
     // console.log('Current form of doc', doc)
     doc[0].save(callback(null, doc))

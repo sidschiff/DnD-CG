@@ -38,8 +38,8 @@ app.post('/user', (req, res) => {
 //db addCharacter
 app.post('/user/char', (req, res) => {
   let { userData, charData } = req.body
-  console.log('adding character to user:', userData)
-  console.log('added character: ', charData)
+  // console.log('adding character to user:', userData)
+  // console.log('added character: ', charData)
   db.addCharacter(userData, charData, (err, result) => {
     if (err) {
       console.log(err)

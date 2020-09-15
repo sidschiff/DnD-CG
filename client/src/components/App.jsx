@@ -69,7 +69,7 @@ class App extends React.Component {
           authenticated: true,
           characters: response.data.characters
         }, () => {
-          console.log(this.state.characters)
+          // console.log(this.state.characters)
         })
       })
       .catch((err) => {
@@ -104,18 +104,69 @@ class App extends React.Component {
       })
   }
 
+  handleLogout(e) {
+    this.setState({
+      authenticated: false,
+      characters: []
+    })
+  }
+
+  handleSaveCharacter(e) {
+    if (this.state.authenticated) {
+      //Get the character
+      let charData = {
+        characterName: this.state.name,
+        race: this.state.race,
+        class: this.state.class,
+        stats: this.state.stats
+      }
+      let userData = {
+        name: this.state.username
+      }
+      //send to the db
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/user/char',
+        data: {
+          charData,
+          userData
+        }
+      })
+        .then((response) => {
+          // console.log(response.data[0].characters)
+          this.setState({
+            characters: response.data[0].characters
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    } else {
+      //Alert that you need to be logged in to save a character
+      alert('You need to be logged in to save a character!')
+    }
+  }
 
   render() {
     return (
       <div className="container-fluid">
         <div className="pt-2">
           <div className="row justify-content-between">
-            <div className="h5 col">
+            <div className="h4 col">
               Character Generator
             </div>
             <div className="col-2">
-              <button type="button" className="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#loginModal">Login</button>
-              <button type="button" className="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#createModal">Create Account</button>
+              {this.state.authenticated
+                ? (
+                  <button type="button" className="btn btn-sm btn-outline-primary col" onClick={this.handleLogout.bind(this)}>Logout</button>
+                )
+                : (
+                  <div>
+                    <button type="button" className="btn btn-sm btn-outline-primary col" data-toggle="modal" data-target="#loginModal">Login</button>
+                    <button type="button" className="btn btn-sm btn-outline-primary col" data-toggle="modal" data-target="#createModal">Create Account</button>
+                  </div>
+                )
+              }
             </div>
             <div className="modal fade" id="loginModal" tabIndex="-1" aria-labelledby="loginModal" aria-hidden="true">
               <div className="modal-dialog">
@@ -157,37 +208,47 @@ class App extends React.Component {
         </div>
         <div className="row">
           <div className="col">
-            <Character race={this.state.race} name={this.state.name} class={this.state.class} putstats={this.handleStatRender.bind(this)} />
-            {' '}
-            <div>
-              Characters:
-              {this.state.characters.length >= 1
-              ? this.state.characters.map((char, i) => {
-                return (
+            <Character race={this.state.race} name={this.state.name} class={this.state.class} putstats={this.handleStatRender.bind(this)} save={this.handleSaveCharacter.bind(this)} />
+            {this.state.authenticated
+              ? (
+                <div>
                   <div>
-                    <div>
-                      Name:
-                      {' '}
-                      {char.characterName}
-                    </div>
-                    <div>
-                      Race:
-                      {' '}
-                      {char.race}
-                    </div>
-                    <div>
-                      Class:
-                      {' '}
-                      {char.class}
-                    </div>
-                    <div>
-                      Ability Scores:
-                        <AbilityScore str={char.stats.str} dex={char.stats.dex} con={char.stats.con} int={char.stats.int} wis={char.stats.wis} cha={char.stats.cha} />
-                    </div>
+                    Logged in as {this.state.username}
                   </div>
-                )
-              })
+                  <div className="h5">
+                    Characters:
+                </div>
+                </div>
+              )
               : null}
+            <div className="mpt-3 overflow-auto" style={{ height: 500 }}>
+              {this.state.characters.length >= 1
+                ? this.state.characters.map((char, i) => {
+                  return (
+                    <div>
+                      <div>
+                        Name:
+                      {' '}
+                        {char.characterName}
+                      </div>
+                      <div>
+                        Race:
+                      {' '}
+                        {char.race}
+                      </div>
+                      <div>
+                        Class:
+                      {' '}
+                        {char.class}
+                      </div>
+                      <div>
+                        Ability Scores:
+                        <AbilityScore str={char.stats.str} dex={char.stats.dex} con={char.stats.con} int={char.stats.int} wis={char.stats.wis} cha={char.stats.cha} />
+                      </div>
+                    </div>
+                  )
+                })
+                : null}
 
             </div>
           </div>

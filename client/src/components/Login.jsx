@@ -23,7 +23,7 @@ class Login extends React.Component {
   }
 
   handleObject() {
-    console.log('clicked')
+    // console.log('clicked')
     let obj = {
       username: this.state.formUser,
       squigle: this.state.formPass
