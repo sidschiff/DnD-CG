@@ -1,34 +1,63 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/DNDCG', {useNewUrlParser: true, useUnifiedTopology: true }, );
 
 let userSchema = mongoose.Schema({
-  user: { name: String, password: String },
-  characters: [ { characterName: String, class: String, stats: Object } ],
+  name: {type: String, unique: true},
+  password: String,
+  characters: [ { characterName: String, race: String, class: String, stats: Object } ],
 })
 
 let User = mongoose.model('User', userSchema)
 
-let createAccount = (userData) => {
-  let createdAccount = new User( {user: { userData }})
-  createdAccount.save()
-}
+const db = mongoose.connect('mongodb://localhost:27017/DNDCG', {useNewUrlParser: true, useUnifiedTopology: true }, );
 
-let findAccount = (userData, callback) => {
-  User.find({user: {name: userData.name, password: userData.password}}, callback(err, docs))
-}
+db
+  .then(db => console.log('connected to mongodb://localhost:27017/DNDCG'))
+  .catch(err => {
+    console.log('there was a problem connecting to mongo')
+    console.log(err)
+  })
 
-let addCharacter = (userData, charData, callback) => {
-  User.find({user: {name: userData.name, password: userData.password}}, (err, doc) => {
+db.createAccount = (userData, callback) => {
+  // User.find({name: userData.name}, (err, doc) => {
+  //   if (err) {
+  //     let createdAccount = new User( userData )
+  //     createdAccount.save()
+  //     callback(null, 'Created')
+  //   } else {
+  //     if (doc) {
+  //       callback('User already exists', doc)
+  //     }
+  //   }
+  // })
+  User.create(userData, (err, doc) => {
     if (err) {
-      callback(err)
+      callback(err, null)
     }
-    doc.characters.concat(charData);
-    doc.save(callback(null, doc))
+    callback(null, doc)
   })
 }
 
-module.exports ={
-  createAccount,
-  findAccount,
-  addCharacter
+db.findAccount = (userData, callback) => {
+  User.find({name: userData.name, password: userData.password}, (err, docs) => {
+    if (err) {
+      console.log(err)
+    }
+    // console.log('Docs inside findAccount', docs)
+    callback(null, docs)
+  })
 }
+
+db.addCharacter = (userData, charData, callback) => {
+  User.find({name: userData.name}, (err, doc) => {
+    if (err) {
+      callback(err)
+    }
+    // console.log('Current form of doc', doc)
+    console.log(charData)
+    doc[0].characters.push(charData);
+    // console.log('Current form of doc', doc)
+    doc[0].save(callback(null, doc))
+  })
+}
+
+module.exports = db;

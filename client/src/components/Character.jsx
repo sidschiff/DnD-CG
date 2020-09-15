@@ -103,7 +103,9 @@ class Character extends React.Component {
         currentName: this.props.name
       }, () => {
         // console.log('Set current name to ', this.state.currentName)
-        this.setStats(this.props.race)
+        if (this.props.stats === undefined) {
+          this.setStats(this.props.race)
+        }
       })
     }
   }
@@ -116,6 +118,11 @@ class Character extends React.Component {
           Name:
             {' '}
           {this.props.name}
+        </div>
+        <div>
+          Race:
+          {' '}
+          {this.props.race}
         </div>
         <div>
           Class:

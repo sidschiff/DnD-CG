@@ -23,9 +23,10 @@ class Login extends React.Component {
   }
 
   handleObject() {
+    console.log('clicked')
     let obj = {
       username: this.state.formUser,
-      password: this.state.formPass
+      squigle: this.state.formPass
     }
 
     this.props.grab(obj)
@@ -41,7 +42,7 @@ class Login extends React.Component {
           <div className="form-group">
             <input type="password" className="form-control" placeholder="password" onChange={this.handleFormPass.bind(this)}></input>
           </div>
-          <button type="button" className="btn btn-primary" onClick={this.handleObject.bind(this)}>Login</button>
+          <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.handleObject.bind(this)}>Login</button>
         </form>
       </div>
     )

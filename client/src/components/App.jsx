@@ -3,6 +3,8 @@ import axios from 'axios';
 import Form from './Form';
 import Character from './Character';
 import Login from './Login';
+import Create from './Create';
+import AbilityScore from './AbilityScore';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class App extends React.Component {
       name: '',
       class: '',
       stats: {},
+      characters: []
     }
   }
 
@@ -43,13 +46,62 @@ class App extends React.Component {
   }
 
   handleLoginForm(input) {
-    let { formUser, formPass } = input
+    // console.log('input from login', input)
+    let { username, squigle } = input
 
-    // If username/pass are found in database
-    this.setState({
-      username: formUser,
-      authenticated: true
+    let data = {
+      name: username,
+      password: squigle,
+      login: true
+    }
+    // console.log('user data getting sent', data)
+
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/user',
+      data: data
     })
+      .then((response) => {
+        // console.log('response from server', response.data)
+        // If username/pass are found in database, and grab characters
+        this.setState({
+          username: username,
+          authenticated: true,
+          characters: response.data.characters
+        }, () => {
+          console.log(this.state.characters)
+        })
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err)
+        }
+      })
+  }
+
+  handleCreateForm(input) {
+    let { username, squigle } = input
+
+    let data = {
+      name: username,
+      password: squigle,
+      create: true
+    }
+    // console.log('user data getting sent', data)
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/user',
+      data: data
+    })
+      .then((response) => {
+        // console.log('response from server', response.data)
+        // If username/pass are found in database, and grab characters
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err)
+        }
+      })
   }
 
 
@@ -75,7 +127,7 @@ class App extends React.Component {
                     </button>
                   </div>
                   <div className="modal-body">
-                    <Login grab={this.handleLoginForm.bind(this)}/>
+                    <Login grab={this.handleLoginForm.bind(this)} />
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -93,11 +145,10 @@ class App extends React.Component {
                     </button>
                   </div>
                   <div className="modal-body">
-                  CREATE ACCOUNT FORM HERE
+                    <Create grab={this.handleCreateForm.bind(this)} />
                   </div>
                   <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Create</button>
                   </div>
                 </div>
               </div>
@@ -107,6 +158,38 @@ class App extends React.Component {
         <div className="row">
           <div className="col">
             <Character race={this.state.race} name={this.state.name} class={this.state.class} putstats={this.handleStatRender.bind(this)} />
+            {' '}
+            <div>
+              Characters:
+              {this.state.characters.length >= 1
+              ? this.state.characters.map((char, i) => {
+                return (
+                  <div>
+                    <div>
+                      Name:
+                      {' '}
+                      {char.characterName}
+                    </div>
+                    <div>
+                      Race:
+                      {' '}
+                      {char.race}
+                    </div>
+                    <div>
+                      Class:
+                      {' '}
+                      {char.class}
+                    </div>
+                    <div>
+                      Ability Scores:
+                        <AbilityScore str={char.stats.str} dex={char.stats.dex} con={char.stats.con} int={char.stats.int} wis={char.stats.wis} cha={char.stats.cha} />
+                    </div>
+                  </div>
+                )
+              })
+              : null}
+
+            </div>
           </div>
           <div className="col">
             <Form putname={this.handleNameRender.bind(this)} putclass={this.handleClassRender.bind(this)} putrace={this.handleRaceRender.bind(this)} />
