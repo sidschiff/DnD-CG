@@ -66,13 +66,53 @@ class Character extends React.Component {
     }
 
     // Add Racial Bonus
-    if (race === 'human') {
+    if (race === 'Human') {
       stats.str += 1
       stats.dex += 1
       stats.con += 1
       stats.int += 1
       stats.wis += 1
       stats.cha += 1
+    }
+    if (race === 'High Elf') {
+      stats.dex += 2
+      stats.int += 1
+    }
+    if (race === 'Wood Elf') {
+      stats.dex += 2
+      stats.wis += 1
+    }
+    if (race === 'Dark Elf') {
+      stats.dex += 2
+      stats.cha += 1
+    }
+    if (race === 'Lightfoot Halfling') {
+      stats.dex += 2
+      stats.cha += 1
+    }
+    if (race === 'Stout Halfling') {
+      stats.dex += 2
+      stats.con += 1
+    }
+    if (race === 'Hill Dwarf') {
+      stats.con += 2
+      stats.wis += 1
+    }
+    if (race === 'Mountain Dwarf') {
+      stats.con += 2
+      stats.str += 2
+    }
+    if (race === 'Dragonborn') {
+      stats.str += 2
+      stats.cha += 1
+    }
+    if (race === 'Forest Gnome') {
+      stats.int += 2
+      stats.dex += 1
+    }
+    if (race === 'Rock Gnome') {
+      stats.int += 2
+      stats.con += 1
     }
 
     // Set final stats to state

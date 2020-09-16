@@ -5,6 +5,10 @@ let randomNumber = (min, max) => {
 }
 
 let getName = (race, gender) => {
+  let split = race.split(' ')
+  if (split.length > 1) {
+    race = split[1]
+  }
   let firstRandom = randomNumber(0, names.firstNames[race][gender].length - 1)
   let lastRandom = randomNumber(0, names.lastNames[race].length - 1)
 

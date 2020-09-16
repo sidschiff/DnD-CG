@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      username: '',
+      username: null,
       authenticated: false,
       race: '',
       name: '',
@@ -48,6 +48,9 @@ class App extends React.Component {
   handleLoginForm(input) {
     // console.log('input from login', input)
     let { username, squigle } = input
+    if (username.length < 1 || username === null || undefined) {
+      return null;
+    }
 
     let data = {
       name: username,
@@ -62,7 +65,7 @@ class App extends React.Component {
       data: data
     })
       .then((response) => {
-        // console.log('response from server', response.data)
+        // console.log('response from server', response)
         // If username/pass are found in database, and grab characters
         this.setState({
           username: username,
@@ -158,12 +161,16 @@ class App extends React.Component {
             <div className="col-2">
               {this.state.authenticated
                 ? (
-                  <button type="button" className="btn btn-sm btn-outline-primary col" onClick={this.handleLogout.bind(this)}>Logout</button>
+                  <button type="button" className="btn btn-sm btn-primary col" onClick={this.handleLogout.bind(this)}>Logout</button>
                 )
                 : (
-                  <div>
-                    <button type="button" className="btn btn-sm btn-outline-primary col" data-toggle="modal" data-target="#loginModal">Login</button>
-                    <button type="button" className="btn btn-sm btn-outline-primary col" data-toggle="modal" data-target="#createModal">Create Account</button>
+                  <div className="row">
+                    <div className="mp-2 col">
+                      <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#loginModal">Login</button>
+                    </div>
+                    <div className="mp-2 col-8">
+                      <button type="button" className="btn btn-sm btn-primary" data-toggle="modal" data-target="#createModal">Create Account</button>
+                    </div>
                   </div>
                 )
               }
@@ -217,7 +224,7 @@ class App extends React.Component {
                   </div>
                   <div className="h5">
                     Characters:
-                </div>
+                  </div>
                 </div>
               )
               : null}
@@ -225,7 +232,7 @@ class App extends React.Component {
               {this.state.characters.length >= 1
                 ? this.state.characters.map((char, i) => {
                   return (
-                    <div>
+                    <div className="mp-2">
                       <div>
                         Name:
                       {' '}

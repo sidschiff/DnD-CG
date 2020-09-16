@@ -55,7 +55,17 @@ class Form extends React.Component {
             <label>Race</label>
             <select className="form-control" value={this.state.formRace} onChange={this.handleFormRace.bind(this)}>
               <option value="">--</option>
-              <option value="human">Human</option>
+              <option value="Hill Dwarf">Hill Dwarf</option>
+              <option value="Mountain Dwarf">Mountain Dwarf</option>
+              <option value="High Elf">High Elf</option>
+              <option value="Wood Elf">Wood Elf</option>
+              <option value="Dark Elf">Dark Elf</option>
+              <option value="Lightfoot Halfling">Lightfoot Halfling</option>
+              <option value="Stout Halfling">Stout Halfling</option>
+              <option value="Human">Human</option>
+              <option value="Dragonborn">Dragonborn</option>
+              <option value="Forest Gnome">Forest Gnome</option>
+              <option value="Rock Gnome">Rock Gnome</option>
             </select>
           </div>
           <div className="form-group">
@@ -70,10 +80,18 @@ class Form extends React.Component {
             <label>What do you want to do?</label>
             <select className="form-control" value={this.state.formClass} onChange={this.handleFormClass.bind(this)}>
               <option value="">--</option>
-              <option value="Fighter">Hit stuff</option>
+              <option value="Barbarian">Get mad</option>
+              <option value="Bard">Sing spells</option>
+              <option value="Cleric">Serve a Higher Power</option>
+              <option value="Druid">Do nature things</option>
+              <option value="Fighter">Fight stuff with weapons</option>
+              <option value="Monk">Fight stuff with your body</option>
+              <option value="Paladin">Go on a crusade</option>
               <option value="Ranger">Shoot stuff</option>
               <option value="Rogue">Be all sneaky</option>
-              <option value="Wizard">Cast spells</option>
+              <option value="Sorceror">Be the spells</option>
+              <option value="Warlock">Make a deal with a Higher Power</option>
+              <option value="Wizard">Learn spells</option>
             </select>
           </div>
         </form>
