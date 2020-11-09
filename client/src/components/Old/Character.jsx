@@ -175,13 +175,6 @@ class Character extends React.Component {
             ? <AbilityScore str={this.state.stats.str} dex={this.state.stats.dex} con={this.state.stats.con} int={this.state.stats.int} wis={this.state.stats.wis} cha={this.state.stats.cha} />
             : null}
         </div>
-        <div>
-          {this.props.name.length > 1
-            ? (
-              <button type="button" className="btn btn-outline-secondary" onClick={this.props.save}>Save this Character!</button>
-            )
-            : null}
-        </div>
       </div>
     )
   }
