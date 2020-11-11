@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Stats(props) {
+function Stats(race, optimized) {
   // Helper Functions and things
   let randomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  let race = props.race
+  // let race = props.race
 
   let stats = {
     str: 8,
@@ -30,7 +30,7 @@ function Stats(props) {
   let pool = 27
   while (pool >= 0) {
     // pick random stat
-    let randomStat = numToStat[this.randomNumber(1, 6)]
+    let randomStat = numToStat[randomNumber(1, 6)]
     let randomStatValue = stats[randomStat]
     // if stat isn't 15
     if (randomStatValue < 15) {

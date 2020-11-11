@@ -43,10 +43,12 @@ class App extends React.Component {
     }
     // call function with params
     let characterName = name.getName(nameParam.race, nameParam.gender)
+    let stats = Stats(this.state.formRace)
 
     // Give it to App
     this.setState({
-      name: characterName
+      name: characterName,
+      stats: stats
     })
   }
 
@@ -133,7 +135,42 @@ class App extends React.Component {
           </div>
           <div>
             Ability Scores:
-
+            {this.state.stats
+              ? (
+                <div>
+                  <div>
+                    Strength:
+                    {' '}
+                    {this.state.stats.str}
+                  </div>
+                  <div>
+                    Dexterity:
+                    {' '}
+                    {this.state.stats.dex}
+                  </div>
+                  <div>
+                    Constitution:
+                    {' '}
+                    {this.state.stats.con}
+                  </div>
+                  <div>
+                    Intelligence:
+                    {' '}
+                    {this.state.stats.int}
+                  </div>
+                  <div>
+                    Wisdom:
+                    {' '}
+                    {this.state.stats.wis}
+                  </div>
+                  <div>
+                    Charisma:
+                    {' '}
+                    {this.state.stats.cha}
+                  </div>
+                </div>
+                )
+              : null}
           </div>
         </div>
       </div>
