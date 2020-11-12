@@ -6,16 +6,6 @@ function Stats(race, charClass, optimized) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  let weightedNumber = (spec) => {
-    let i, j, table = []
-    for (i in spec) {
-      for (j = 0; j <= spec[i]; j++) {
-        table.push(i)
-      }
-    }
-    return table[Math.floor(Math.random() * table.length)]
-  }
-
   // let race = props.race
 
   let stats = {

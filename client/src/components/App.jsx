@@ -11,7 +11,8 @@ class App extends React.Component {
       formGender: '',
       formClass: '',
       name: null,
-      stats: null
+      stats: null,
+      optimize: false
     }
   }
 
@@ -35,6 +36,12 @@ class App extends React.Component {
     })
   }
 
+  handleOptimizeCheck(e) {
+    this.setState({
+      optimize: !this.state.optimize
+    })
+  }
+
   handleFormSubmit(e) {
     // Grab inputs
     let nameParam = {
@@ -43,7 +50,12 @@ class App extends React.Component {
     }
     // call function with params
     let characterName = name.getName(nameParam.race, nameParam.gender)
-    let stats = Stats(this.state.formRace)
+    if (!this.state.optimize) {
+      let stats = Stats(this.state.formRace)
+    }
+    else if (this.state.optimize) {
+      let stats = Stats(this.state.formRace, this.state.formClass, true)
+    }
 
     // Give it to App
     this.setState({
@@ -106,12 +118,15 @@ class App extends React.Component {
                   <option value="Wizard">Learn spells</option>
                 </select>
               </div>
+              <div className="form-check">
+                <input className="form-check-input" type="checkbox" value={this.state.optimize} id="optimizebox" onClick={this.handleOptimizeCheck.bind(this)} />
+                <label className="form-check-label" htmlFor="optimizebox" >Optimize the stats?</label>
+              </div>
             </form>
             <button type="button" className="btn btn-outline-secondary" onClick={this.handleFormSubmit.bind(this)}>Get a Character!</button>
           </div>
         </div>
         <div className="charpreview">
-          CHAR SHEET HERE
           <div>
             Name:
             {' '}
