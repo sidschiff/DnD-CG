@@ -1,11 +1,9 @@
 import React from 'react';
 
-function Stats(race, charClass, optimized) {
+function Stats(race, charClass, random) {
   // Helper Functions and things
-  let randomNumber = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
 
+  // Weighted number distribution function
   let weightedNumber = (spec) => {
     let i, j, table = []
     for (i in spec) {
@@ -16,8 +14,61 @@ function Stats(race, charClass, optimized) {
     return table[Math.floor(Math.random() * table.length)]
   }
 
-  // let race = props.race
+  // Creates spec for weighted number function
+  let createSpec = (charClass, random) => {
+    let spec = {1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1}
+    if (!random) {
+      // Increase weight of stats based on class
+      if (charClass == "Barbarian") {
+        spec[1] += 5
+        spec[3] += 3
+      }
+      if (charClass == "Bard") {
+        spec[6] += 5
+        spec[2] += 3
+      }
+      if (charClass == "Cleric") {
+        spec[5] += 5
+        spec[1] += 2
+        spec[3] += 1
+      }
+      if (charClass == "Druid") {
+        spec[5] += 5
+        spec[3] += 3
+      }
+      if (charClass == "Fighter") {
+        spec[1] += 2
+        spec[2] += 2
+        spec[3] += 2
+        spec[4] += 2
+      }
+      if (charClass == "Monk" || charClass == "Ranger") {
+        spec[2] += 5
+        spec[5] += 3
+      }
+      if (charClass == "Paladin") {
+        spec[1] += 5
+        spec[6] += 3
+      }
+      if (charClass == "Rogue") {
+        spec[2] += 5
+        spec[6] += 2
+        spec[4] += 1
+      }
+      if (charClass == "Sorceror" || charClass == "Warlock") {
+        spec[6] += 5
+        spec[3] += 3
+      }
+      if (charClass == "Wizard") {
+        spec[4] += 5
+        spec[2] += 2
+        spec[3] += 1
+      }
+    }
+    return spec
+  }
 
+  // Baseline stats
   let stats = {
     str: 8,
     dex: 8,
@@ -27,6 +78,7 @@ function Stats(race, charClass, optimized) {
     cha: 8
   }
 
+  // Key for stat distribution
   let numToStat = {
     1: 'str',
     2: 'dex',
@@ -40,7 +92,7 @@ function Stats(race, charClass, optimized) {
   let pool = 27
   while (pool >= 0) {
     // pick random stat
-    let randomStat = numToStat[randomNumber(1, 6)]
+    let randomStat = numToStat[weightedNumber(createSpec(charClass, random))]
     let randomStatValue = stats[randomStat]
     // if stat isn't 15
     if (randomStatValue < 15) {
