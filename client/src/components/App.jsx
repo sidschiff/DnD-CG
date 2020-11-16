@@ -61,7 +61,11 @@ class App extends React.Component {
 
   ///////////////////////////////
 
+
+  ///////////////////////////////
+
   render() {
+
     return (
       <div className="container-fluid">
         <div className="navbar row">
@@ -70,7 +74,7 @@ class App extends React.Component {
               DnD 5e Character Generator
             </h4>
             <p className="row">
-              Names are randomly generated based on the race and gender selected, using the a pool of the recommended names from the Player Handbook. <br/>
+              Names are randomly generated based on the race and gender selected, using the a pool of the recommended names from the Player Handbook. <br />
               Using the Point Buy System, stats are semi-randomly allocated based on the chosen class, though if you're feeling like you would like a completely random stat distribution, hit the checkbox!
             </p>
           </div>
@@ -127,7 +131,7 @@ class App extends React.Component {
             <button type="button" className="btn btn-outline-secondary" onClick={this.handleFormSubmit.bind(this)}>Get a Character!</button>
           </div>
         </div>
-        <div className="col">
+        {/* <div className="col">
           <div>
             Name:
             {' '}
@@ -188,7 +192,8 @@ class App extends React.Component {
                 )
               : null}
           </div>
-        </div>
+        </div> */}
+        <canvas id="pdf-render" className="col"></canvas>
       </div>
     )
   }
