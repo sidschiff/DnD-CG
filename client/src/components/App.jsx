@@ -164,7 +164,6 @@ class App extends React.Component {
                 </div>
                 <div className="form-group col">
                   <label>Want true random stats?</label>
-                  {/* <input className="form-check-input" type="checkbox" value={this.state.randomize} onClick={this.handleRandomizeCheck.bind(this)} /> */}
                   <select className="form-control" value={this.state.randomize} onChange={this.handleRandomizeCheck.bind(this)}>
                     <option value={false}>Nope!</option>
                     <option value={true}>Yeah!</option>
