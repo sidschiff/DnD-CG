@@ -107,7 +107,7 @@ class App extends React.Component {
             </h4>
             <div className="">
               <p className="row">
-                Names are randomly generated based on the race and gender selected, using the a pool of the recommended names from the Player Handbook.
+                Names are randomly generated based on the race and gender selected, using a pool of the recommended names from the Player Handbook.
             </p>
               <p className="row">
                 Using the Point Buy System stats are allocated via weighted random distribution based on the chosen class, though if you're feeling like you would like a completely random stat distribution that's also an option!
