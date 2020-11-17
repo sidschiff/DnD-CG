@@ -2,8 +2,6 @@ import React from 'react';
 import name from '../dataGen/nameGenerator';
 import Stats from './Stats.jsx';
 
-// import { getPdf } from './Pdf.js';
-
 class App extends React.Component {
   constructor() {
     super()
@@ -103,63 +101,75 @@ class App extends React.Component {
     return (
       <div className="container-fluid">
         <div className="navbar row">
-          <div className="col-4">
+          <div className="col-sm">
             <h4 className="row">
               DnD 5e Character Generator
             </h4>
-            <p className="row">
-              Names are randomly generated based on the race and gender selected, using the a pool of the recommended names from the Player Handbook. <br />
-              Using the Point Buy System, stats are semi-randomly allocated based on the chosen class, though if you're feeling like you would like a completely random stat distribution, hit the checkbox!
+            <div className="">
+              <p className="row">
+                Names are randomly generated based on the race and gender selected, using the a pool of the recommended names from the Player Handbook.
             </p>
+              <p className="row">
+                Using the Point Buy System stats are allocated via weighted random distribution based on the chosen class, though if you're feeling like you would like a completely random stat distribution that's also an option!
+            </p>
+            </div>
           </div>
           <div className="col">
-            <form className="row">
-              <div className="form-group col">
-                <label>Race</label>
-                <select className="form-control" value={this.state.formRace} onChange={this.handleFormRace.bind(this)}>
-                  <option value="">--</option>
-                  <option value="Hill Dwarf">Hill Dwarf</option>
-                  <option value="Mountain Dwarf">Mountain Dwarf</option>
-                  <option value="High Elf">High Elf</option>
-                  <option value="Wood Elf">Wood Elf</option>
-                  <option value="Dark Elf">Dark Elf</option>
-                  <option value="Lightfoot Halfling">Lightfoot Halfling</option>
-                  <option value="Stout Halfling">Stout Halfling</option>
-                  <option value="Human">Human</option>
-                  <option value="Dragonborn">Dragonborn</option>
-                  <option value="Forest Gnome">Forest Gnome</option>
-                  <option value="Rock Gnome">Rock Gnome</option>
-                </select>
+            <form className="">
+              <div className="row">
+                <div className="form-group col">
+                  <label>Race</label>
+                  <select className="form-control" value={this.state.formRace} onChange={this.handleFormRace.bind(this)}>
+                    <option value="">--</option>
+                    <option value="Hill Dwarf">Hill Dwarf</option>
+                    <option value="Mountain Dwarf">Mountain Dwarf</option>
+                    <option value="High Elf">High Elf</option>
+                    <option value="Wood Elf">Wood Elf</option>
+                    <option value="Dark Elf">Dark Elf</option>
+                    <option value="Lightfoot Halfling">Lightfoot Halfling</option>
+                    <option value="Stout Halfling">Stout Halfling</option>
+                    <option value="Human">Human</option>
+                    <option value="Dragonborn">Dragonborn</option>
+                    <option value="Forest Gnome">Forest Gnome</option>
+                    <option value="Rock Gnome">Rock Gnome</option>
+                  </select>
+                </div>
+                <div className="form-group col">
+                  <label>Gender</label>
+                  <select className="form-control" value={this.state.formGender} onChange={this.handleFormGender.bind(this)}>
+                    <option value="">--</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
               </div>
-              <div className="form-group col">
-                <label>Gender</label>
-                <select className="form-control" value={this.state.formGender} onChange={this.handleFormGender.bind(this)}>
-                  <option value="">--</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </div>
-              <div className="form-group col">
-                <label>What do you want to do?</label>
-                <select className="form-control" value={this.state.formClass} onChange={this.handleFormClass.bind(this)}>
-                  <option value="">--</option>
-                  <option value="Barbarian">Get mad</option>
-                  <option value="Bard">Sing spells</option>
-                  <option value="Cleric">Serve a Higher Power</option>
-                  <option value="Druid">Do nature things</option>
-                  <option value="Fighter">Fight stuff with weapons</option>
-                  <option value="Monk">Fight stuff with your body</option>
-                  <option value="Paladin">Go on a crusade</option>
-                  <option value="Ranger">Shoot stuff</option>
-                  <option value="Rogue">Be all sneaky</option>
-                  <option value="Sorceror">Be the spells</option>
-                  <option value="Warlock">Make a deal with a Higher Power</option>
-                  <option value="Wizard">Learn spells</option>
-                </select>
-              </div>
-              <div className="form-check col">
-                <input className="form-check-input" type="checkbox" value={this.state.randomize} id="randomizebox" onClick={this.handleRandomizeCheck.bind(this)} />
-                <label className="form-check-label" htmlFor="randomizebox" >Want random stats?</label>
+              <div className="row">
+                <div className="form-group col">
+                  <label>What do you want to do?</label>
+                  <select className="form-control" value={this.state.formClass} onChange={this.handleFormClass.bind(this)}>
+                    <option value="">--</option>
+                    <option value="Barbarian">Get mad</option>
+                    <option value="Bard">Sing spells</option>
+                    <option value="Cleric">Serve a Higher Power</option>
+                    <option value="Druid">Do nature things</option>
+                    <option value="Fighter">Fight stuff with weapons</option>
+                    <option value="Monk">Fight stuff with your body</option>
+                    <option value="Paladin">Go on a crusade</option>
+                    <option value="Ranger">Shoot stuff</option>
+                    <option value="Rogue">Be all sneaky</option>
+                    <option value="Sorceror">Be the spells</option>
+                    <option value="Warlock">Make a deal with a Higher Power</option>
+                    <option value="Wizard">Learn spells</option>
+                  </select>
+                </div>
+                <div className="form-group col">
+                  <label>Want true random stats?</label>
+                  {/* <input className="form-check-input" type="checkbox" value={this.state.randomize} onClick={this.handleRandomizeCheck.bind(this)} /> */}
+                  <select className="form-control" value={this.state.randomize} onChange={this.handleRandomizeCheck.bind(this)}>
+                    <option value={false}>Nope!</option>
+                    <option value={true}>Yeah!</option>
+                  </select>
+                </div>
               </div>
             </form>
             <div className="row">
