@@ -19,6 +19,7 @@ class App extends React.Component {
   }
 
   ///////////////////////////////
+  // Functions for controlled form
 
   handleFormRace(e) {
     this.setState({
@@ -45,7 +46,7 @@ class App extends React.Component {
   }
 
   handleFormSubmit(e) {
-    // Grab inputs
+    // Grab inputs, if no input assign random value
     let nameParam = {
       race: (this.state.formRace.length > 3 ? this.state.formRace : this.randomRace()),
       gender: (this.state.formGender.length > 3 ? this.state.formGender : this.randomGender())
@@ -55,7 +56,7 @@ class App extends React.Component {
     let characterName = name.getName(nameParam.race, nameParam.gender)
     let stats = Stats(nameParam.race, job, this.state.randomize)
 
-    // Give it to App
+    // Give it to state
     this.setState({
       name: characterName,
       formRace: nameParam.race,
@@ -99,7 +100,6 @@ class App extends React.Component {
   ///////////////////////////////
 
   render() {
-
     return (
       <div className="container-fluid">
         <div className="navbar row">
