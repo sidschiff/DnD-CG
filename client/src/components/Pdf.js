@@ -5,7 +5,7 @@ let pdfDoc = null,
   pageIsRendering = false,
   pageNumIsPending = null
 
-const scale = 1,
+const scale = 1.5,
   canvas = document.querySelector('#pdf-render'),
   ctx = canvas.getContext('2d')
 
@@ -37,8 +37,9 @@ const renderPage = num => {
 }
 
 // Get PDF Doc
-pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
-  pdfDoc = pdfDoc_
-
-  renderPage(pageNum)
-})
+function getPdf() {
+  pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
+    pdfDoc = pdfDoc_
+    renderPage(pageNum)
+  })
+}

@@ -2,6 +2,8 @@ import React from 'react';
 import name from '../dataGen/nameGenerator';
 import Stats from './Stats.jsx';
 
+// import { getPdf } from './Pdf.js';
+
 class App extends React.Component {
   constructor() {
     super()
@@ -45,23 +47,55 @@ class App extends React.Component {
   handleFormSubmit(e) {
     // Grab inputs
     let nameParam = {
-      race: this.state.formRace,
-      gender: this.state.formGender
+      race: (this.state.formRace.length > 3 ? this.state.formRace : this.randomRace()),
+      gender: (this.state.formGender.length > 3 ? this.state.formGender : this.randomGender())
     }
+    let job = this.state.formClass.length > 3 ? this.state.formClass : this.randomClass()
     // call function with params
     let characterName = name.getName(nameParam.race, nameParam.gender)
-    let stats = Stats(this.state.formRace, this.state.formClass, this.state.randomize)
+    let stats = Stats(nameParam.race, job, this.state.randomize)
 
     // Give it to App
     this.setState({
       name: characterName,
+      formRace: nameParam.race,
+      formClass: job,
+      formGender: nameParam.gender,
       stats: stats
     })
   }
 
+  handleReset(e) {
+    this.setState({
+      formRace: '',
+      formGender: '',
+      formClass: '',
+      name: null,
+      stats: null,
+      randomize: false
+    })
+  }
+
   ///////////////////////////////
+  // Functions for if fields are not filled out
+  randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
+  randomRace() {
+    const options = ['Hill Dwarf', 'Mountain Dwarf', 'High Elf', 'Wood Elf', 'Dark Elf', 'Lightfoot Halfling', 'Stout Halfling', 'Human', 'Dragonborn', 'Forest Gnome', 'Rock Gnome']
+    return options[this.randomNumber(0, options.length - 1)]
+  }
 
+  randomClass() {
+    const options = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin', 'Ranger', 'Rogue', 'Sorceror', 'Warlock', 'Wizard']
+    return options[this.randomNumber(0, options.length - 1)]
+  }
+
+  randomGender() {
+    if (this.randomNumber(1, 2) == 1) return 'male'
+    else return 'female'
+  }
   ///////////////////////////////
 
   render() {
@@ -128,10 +162,17 @@ class App extends React.Component {
                 <label className="form-check-label" htmlFor="randomizebox" >Want random stats?</label>
               </div>
             </form>
-            <button type="button" className="btn btn-outline-secondary" onClick={this.handleFormSubmit.bind(this)}>Get a Character!</button>
+            <div className="row">
+              <div className="col">
+                <button type="button" className="btn btn-outline-secondary" onClick={this.handleFormSubmit.bind(this)}>Get a Character!</button>
+              </div>
+              <div className="col">
+                <button type="button" className="btn btn-outline-secondary" onClick={this.handleReset.bind(this)}>Reset Form</button>
+              </div>
+            </div>
           </div>
         </div>
-        {/* <div className="col">
+        <div className="col">
           <div>
             Name:
             {' '}
@@ -189,11 +230,10 @@ class App extends React.Component {
                     {this.state.stats.cha}
                   </div>
                 </div>
-                )
+              )
               : null}
           </div>
-        </div> */}
-        <canvas id="pdf-render" className="col"></canvas>
+        </div>
       </div>
     )
   }

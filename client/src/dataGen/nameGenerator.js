@@ -17,8 +17,6 @@ let getName = (race, gender) => {
   return name
 }
 
-// console.log(getName('human', 'female'))
-
 module.exports = {
   getName,
 }
