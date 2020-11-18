@@ -47,7 +47,7 @@ class App extends React.Component {
     // Grab inputs, if no input assign random value
     let nameParam = {
       race: (this.state.formRace.length > 3 ? this.state.formRace : this.randomRace()),
-      gender: (this.state.formGender.length > 3 ? this.state.formGender : this.randomGender())
+      gender: (this.state.formGender.length > 2 ? this.state.formGender : this.randomGender())
     }
     let job = this.state.formClass.length > 3 ? this.state.formClass : this.randomClass()
     // call function with params
@@ -92,8 +92,9 @@ class App extends React.Component {
   }
 
   randomGender() {
-    if (this.randomNumber(1, 2) == 1) return 'male'
-    else return 'female'
+    if (this.randomNumber(1, 3) == 1) return 'male'
+    else if (this.randomNumber(1, 3) == 2) return 'female'
+    else return 'non'
   }
   ///////////////////////////////
 
@@ -107,7 +108,7 @@ class App extends React.Component {
             </h4>
             <div className="">
               <p className="row">
-                Names are randomly generated based on the race and gender selected, using a pool of the recommended names from the Player Handbook.
+                Names are randomly picked based on the race and gender selected, using a pool of the recommended names from the Player Handbook. The Non-binary option picks from both pools.
             </p>
               <p className="row">
                 Using the Point Buy System stats are allocated via weighted random distribution based on the chosen class, though if you're feeling like you would like a completely random stat distribution that's also an option!
@@ -140,6 +141,7 @@ class App extends React.Component {
                     <option value="">--</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
+                    <option value="non">Non-Binary</option>
                   </select>
                 </div>
               </div>

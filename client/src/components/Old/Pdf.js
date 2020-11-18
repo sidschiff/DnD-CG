@@ -43,3 +43,7 @@ function getPdf() {
     renderPage(pageNum)
   })
 }
+
+module.exports = {
+  getPdf,
+}
