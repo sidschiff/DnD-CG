@@ -5,7 +5,7 @@ let pdfDoc = null,
   pageIsRendering = false,
   pageNumIsPending = null
 
-const scale = 1.5,
+const scale = 2,
   canvas = document.querySelector('#pdf-render'),
   ctx = canvas.getContext('2d')
 
@@ -37,7 +37,7 @@ const renderPage = num => {
 }
 
 // Get PDF Doc
-function getPdf() {
+const getPdf = () => {
   pdfjsLib.getDocument(url).promise.then(pdfDoc_ => {
     pdfDoc = pdfDoc_
     renderPage(pageNum)
@@ -46,4 +46,4 @@ function getPdf() {
 
 module.exports = {
   getPdf,
-}
+};

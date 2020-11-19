@@ -2,6 +2,9 @@ import React from 'react';
 import name from '../dataGen/nameGenerator';
 import Stats from './Stats.jsx';
 
+import { getPdf } from './Pdf.js';
+// const pdf = require('./Pdf.js')
+
 class App extends React.Component {
   constructor() {
     super()
@@ -62,6 +65,8 @@ class App extends React.Component {
       formGender: nameParam.gender,
       stats: stats
     })
+
+    getPdf()
   }
 
   handleReset(e) {
