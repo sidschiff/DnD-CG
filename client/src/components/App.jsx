@@ -2,7 +2,8 @@ import React from 'react';
 import name from '../dataGen/nameGenerator';
 import Stats from './Stats.jsx';
 
-import { getPdf } from './Pdf.js';
+// import { getPdf } from './Pdf.js';
+import { createCopy, fillSheet } from './PdfForm.js'
 // const pdf = require('./Pdf.js')
 
 class App extends React.Component {
@@ -66,7 +67,16 @@ class App extends React.Component {
       stats: stats
     })
 
-    getPdf()
+    // Create data object for PDF
+    let charData = {
+      name: characterName,
+      race: nameParam.race,
+      class: job,
+      stats: stats
+    }
+
+    // Generate and display the PDF
+    fillSheet(charData)
   }
 
   handleReset(e) {
@@ -188,7 +198,7 @@ class App extends React.Component {
             </div>
           </div>
         </div>
-        <div className="col">
+        {/* <div className="col">
           <div>
             Name:
             {' '}
@@ -249,7 +259,7 @@ class App extends React.Component {
               )
               : null}
           </div>
-        </div>
+        </div> */}
       </div>
     )
   }
