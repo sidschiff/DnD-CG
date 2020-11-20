@@ -68,6 +68,19 @@ function Stats(race, charClass, random) {
     return spec
   }
 
+  let getModifier = (num) => {
+    let mod = -1
+    if (num % 2 !== 0) num -= 1
+
+    num -= 8
+    while (num > 0) {
+      num -= 2
+      mod++
+    }
+
+    return mod
+  }
+
   // Baseline stats
   let stats = {
     str: 8,
@@ -75,7 +88,15 @@ function Stats(race, charClass, random) {
     con: 8,
     int: 8,
     wis: 8,
-    cha: 8
+    cha: 8,
+    mod: {
+    strMod: -1,
+    dexMod: -1,
+    conMod: -1,
+    intMod: -1,
+    wisMod: -1,
+    chaMod: -1
+    }
   }
 
   // Key for stat distribution
@@ -161,6 +182,13 @@ function Stats(race, charClass, random) {
     stats.con += 1
   }
 
+  // Get modifiers from stats
+  stats.mod.strMod = '+' + getModifier(stats.str).toString()
+  stats.mod.dexMod = '+' + getModifier(stats.dex).toString()
+  stats.mod.conMod = '+' + getModifier(stats.con).toString()
+  stats.mod.intMod = '+' + getModifier(stats.int).toString()
+  stats.mod.wisMod = '+' + getModifier(stats.wis).toString()
+  stats.mod.chaMod = '+' + getModifier(stats.cha).toString()
   return stats
 }
 
