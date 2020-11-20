@@ -1,30 +1,30 @@
 import { PDFDocument } from 'pdf-lib';
 
 // Creates a copy of the character sheet to be filled
-export async function createCopy() {
-  const url = '../docs/charSheet.pdf'
+// export async function createCopy() {
+//   const url = '../docs/charSheet.pdf'
 
-  const donorPdfBytes = await fetch(url).then(res => res.arrayBuffer())
-  const donorPdfLoad = await PDFDocument.load(donorPdfBytes)
+//   const donorPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+//   const donorPdfLoad = await PDFDocument.load(donorPdfBytes)
 
-  const newPdf = await PDFDocument.create()
+//   const newPdf = await PDFDocument.create()
 
-  const [donorPdfPage] = await newPdf.copyPages(donorPdfLoad, [0])
+//   const [donorPdfPage] = await newPdf.copyPages(donorPdfLoad, [0])
 
-  newPdf.addPage(donorPdfPage)
+//   newPdf.addPage(donorPdfPage)
 
 
-  const pdfBytes = await newPdf.saveAsBase64( { dataUri: true } )
-  // Code to get fields
-  // const form = pdfBytes.getForm()
-  // const fields = form.getFields()
-  // fields.forEach(field => {
-  //   const type = field.constructor.name
-  //   const name = field.getName()
-  //   console.log(`${type}: ${name}`)
-  // })
-  return pdfBytes
-};
+//   const pdfBytes = await newPdf.saveAsBase64( { dataUri: true } )
+//   // Code to get fields
+//   // const form = pdfBytes.getForm()
+//   // const fields = form.getFields()
+//   // fields.forEach(field => {
+//   //   const type = field.constructor.name
+//   //   const name = field.getName()
+//   //   console.log(`${type}: ${name}`)
+//   // })
+//   return pdfBytes
+// };
 
 export async function fillSheet(charData) {
   // const formPdfBytes = await createCopy()

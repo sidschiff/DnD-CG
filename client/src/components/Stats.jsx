@@ -77,8 +77,8 @@ function Stats(race, charClass, random) {
       num -= 2
       mod++
     }
-
-    return mod
+    if (mod === -1) return '-1'
+    else return '+' + mod.toString()
   }
 
   // Baseline stats
@@ -183,12 +183,12 @@ function Stats(race, charClass, random) {
   }
 
   // Get modifiers from stats
-  stats.mod.strMod = '+' + getModifier(stats.str).toString()
-  stats.mod.dexMod = '+' + getModifier(stats.dex).toString()
-  stats.mod.conMod = '+' + getModifier(stats.con).toString()
-  stats.mod.intMod = '+' + getModifier(stats.int).toString()
-  stats.mod.wisMod = '+' + getModifier(stats.wis).toString()
-  stats.mod.chaMod = '+' + getModifier(stats.cha).toString()
+  stats.mod.strMod = getModifier(stats.str)
+  stats.mod.dexMod = getModifier(stats.dex)
+  stats.mod.conMod = getModifier(stats.con)
+  stats.mod.intMod = getModifier(stats.int)
+  stats.mod.wisMod = getModifier(stats.wis)
+  stats.mod.chaMod = getModifier(stats.cha)
   return stats
 }
 
