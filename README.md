@@ -24,7 +24,7 @@ POST /user/char -->
 
 ## Demo
 
-![demo](demo/DNDCG Demo.gif)
+[demo](demo/DNDCG_demo.gif)
 
 ## Developement
 From within the root directory, in their own terminals:
