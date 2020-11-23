@@ -24,7 +24,7 @@ POST /user/char -->
 
 ## Demo
 
-[Character Generator Demo](./demo/DNDCG Demo.gif)
+![demo](demo/DNDCG Demo.gif)
 
 ## Developement
 From within the root directory, in their own terminals:
